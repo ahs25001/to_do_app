@@ -1,0 +1,10 @@
+{
+  "taskTitle": "Task title",
+  "taskDescription": "Task description",
+  "mode": "Mode",
+  "language": "Language",
+  "english":"English",
+  "arabic": "Arabic",
+  "light": "Light",
+  "dark": "Dark"
+}

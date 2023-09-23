@@ -1,0 +1,10 @@
+{
+  "taskTitle": "عنوان المهمة",
+  "taskDescription": "وصف المهمة",
+  "mode": "السمة",
+  "language": "اللغة",
+  "english":"الانجليزية",
+  "arabic": "العربية",
+  "light": "نهاري",
+  "dark": "ليلي"
+}
