@@ -27,7 +27,7 @@ class TaskItem extends StatelessWidget {
                 children: [
                   Text(
                     "Task title",
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: primary),
                   ),
                   SizedBox(height: 4,),
                   Text("Task description",style: Theme.of(context).textTheme.bodySmall,)
