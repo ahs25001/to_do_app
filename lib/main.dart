@@ -18,9 +18,11 @@ class MyApp extends StatelessWidget {
     var provider =Provider.of<MyProvider>(context);
     return MaterialApp(
       locale: Locale(provider.local),
+      themeMode: (provider.mode=="light")?ThemeMode.light:ThemeMode.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: MyThem.light,
+      darkTheme: MyThem.dark,
       routes: {
         HomeLayout.routName:(context) => HomeLayout()
       },

@@ -25,7 +25,10 @@ class _AddTaskState extends State<AddTask> {
           Center(
             child: Text(
               "Add New Task",
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
           SizedBox(
@@ -67,7 +70,8 @@ class _AddTaskState extends State<AddTask> {
           SizedBox(height: 10),
           Text(
             "Select Time",
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyMedium!
+                .copyWith(color: Theme.of(context).colorScheme.onPrimary),
           ),
           SizedBox(
             height: 10,

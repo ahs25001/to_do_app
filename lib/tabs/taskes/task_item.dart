@@ -10,6 +10,7 @@ class TaskItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
+        color: Theme.of(context).colorScheme.onError,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -22,16 +23,27 @@ class TaskItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: primary)),
               ),
-              SizedBox(width: 18,),
+              SizedBox(
+                width: 18,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                AppLocalizations.of(context)!.taskTitle,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: primary),
+                    AppLocalizations.of(context)!.taskTitle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: primary),
                   ),
-                  SizedBox(height: 4,),
-                  Text(AppLocalizations.of(context)!.taskDescription,style: Theme.of(context).textTheme.bodySmall,)
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.taskDescription,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
+                  )
                 ],
               ),
               Spacer(),

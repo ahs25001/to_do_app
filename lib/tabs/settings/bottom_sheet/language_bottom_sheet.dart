@@ -29,7 +29,7 @@ class LanguageBottomSheet extends StatelessWidget {
                       .bodyMedium!
                       .copyWith(color: primary):Theme.of(context)
                       .textTheme
-                      .bodyMedium,
+                      .bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
                 ),
                 (provider.local == "ar") ? Icon(Icons.done) : SizedBox()
               ],
@@ -51,7 +51,7 @@ class LanguageBottomSheet extends StatelessWidget {
                       .bodyMedium!
                       .copyWith(color: primary):Theme.of(context)
                       .textTheme
-                      .bodyMedium,
+                      .bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
                 ),
                 (provider.local == "en") ? Icon(Icons.done) : SizedBox()
               ],

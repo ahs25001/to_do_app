@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:to_do/styles/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:to_do/tabs/settings/bottom_sheet/language_bottom_sheet.dart';
+import 'package:to_do/tabs/settings/bottom_sheet/theme_bottom_sheet.dart';
 
 import '../../providers/my_provider.dart';
 
@@ -34,7 +35,7 @@ class _SettingsState extends State<Settings> {
             height: 10,
           ),
           InkWell(
-            onTap: (){
+            onTap: () {
               openLanguageSheet();
             },
             child: Container(
@@ -46,7 +47,10 @@ class _SettingsState extends State<Settings> {
                 (provider.local == "en")
                     ? AppLocalizations.of(context)!.english
                     : AppLocalizations.of(context)!.arabic,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: Theme.of(context).colorScheme.onPrimary),
               ),
             ),
           ),
@@ -61,20 +65,43 @@ class _SettingsState extends State<Settings> {
           SizedBox(
             height: 10,
           ),
-          Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              decoration: BoxDecoration(
-                  border: Border.all(color: primary, width: 3),
-                  borderRadius: BorderRadius.circular(23)),
-              child: Text(AppLocalizations.of(context)!.light))
+          InkWell(
+            onTap: () {
+              openThemeSheet();
+            },
+            child: Container(
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                decoration: BoxDecoration(
+                    border: Border.all(color: primary, width: 3),
+                    borderRadius: BorderRadius.circular(23)),
+                child: Text(
+                  (provider.mode == "light")
+                      ? AppLocalizations.of(context)!.light
+                      : AppLocalizations.of(context)!.dark,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                )),
+          )
         ],
       ),
     );
   }
 
-  openLanguageSheet(){
-    showModalBottomSheet(context: context, builder: (context){
-      return LanguageBottomSheet();
-    });
+  openLanguageSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return LanguageBottomSheet();
+        });
+  }
+
+  openThemeSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return ThemeSheet();
+        });
   }
 }

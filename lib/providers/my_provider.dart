@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class MyProvider extends ChangeNotifier{
   String local="en";
-  String mode="light";
+  String mode="dark";
   changeLocal(String code){
     local=code;
     notifyListeners();
