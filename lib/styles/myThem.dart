@@ -5,6 +5,7 @@ import 'colors.dart';
 
 class MyThem{
   static ThemeData light=ThemeData(
+    iconTheme: IconThemeData(color: primary),
     appBarTheme: AppBarTheme(
       backgroundColor: primary,
       elevation: 1,
