@@ -34,7 +34,7 @@ class TaskItem extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
-                        .copyWith(color: primary),
+                        .copyWith(color: primary,),
                   ),
                   SizedBox(
                     height: 4,
