@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDisfhXaN0JMdHTFCBRF4h8KzX3orrP5YE',
-    appId: '1:913954138295:android:c1b83db5ea537c09d4c532',
-    messagingSenderId: '913954138295',
-    projectId: 'to-do-11bfa',
-    storageBucket: 'to-do-11bfa.appspot.com',
+    apiKey: 'AIzaSyA1_Bz2G7Mkv7jR97P-CXX8hfzZo2ewfZY',
+    appId: '1:168669690549:android:79e8fb20e929b494669cfc',
+    messagingSenderId: '168669690549',
+    projectId: 'to-do-data-base',
+    storageBucket: 'to-do-data-base.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyChomjviIqmUBO_dQTtb8P7xK6y3YQeq5A',
-    appId: '1:913954138295:ios:df23a082be03a637d4c532',
-    messagingSenderId: '913954138295',
-    projectId: 'to-do-11bfa',
-    storageBucket: 'to-do-11bfa.appspot.com',
+    apiKey: 'AIzaSyA6-5VRTnE_ahHfMGRwqqMJzgeDltG5XkM',
+    appId: '1:168669690549:ios:efeed3dcb68879d6669cfc',
+    messagingSenderId: '168669690549',
+    projectId: 'to-do-data-base',
+    storageBucket: 'to-do-data-base.appspot.com',
     iosBundleId: 'com.example.toDo',
   );
 }

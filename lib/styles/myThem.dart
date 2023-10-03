@@ -35,8 +35,8 @@ class MyThem {
       textTheme: TextTheme(
         bodyLarge: GoogleFonts.poppins(
             color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-        bodyMedium: GoogleFonts.poppins(
-            color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+        // bodyMedium: GoogleFonts.poppins(
+        //     color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         bodySmall: GoogleFonts.poppins(
             color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
       ));

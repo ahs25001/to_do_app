@@ -1,12 +1,16 @@
 class TaskModel {
-  String? title;
-  String? description;
-  String? id;
-  int? date;
-  bool? isDone;
+  String title;
+  String description;
+  String id;
+  int ?date;
+  bool isDone;
 
   TaskModel(
-      {this.title, this.description, this.id, this.date, this.isDone = false});
+      {required this.title,
+      required this.description,
+      this.id = "",
+      required this.date,
+      this.isDone = false});
 
   TaskModel.fromJson(Map<String, dynamic> json)
       : this(
@@ -19,7 +23,7 @@ class TaskModel {
   Map<String, dynamic> toJson() {
     return {
       "title": title,
-      "data": date,
+      "date": date,
       "id": id,
       "description": description,
       "isDone": isDone

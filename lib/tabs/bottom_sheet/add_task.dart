@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:to_do/fire_base/fire_base_manager.dart';
+import 'package:to_do/models/task_Model.dart';
 
 import '../../styles/colors.dart';
 
@@ -70,7 +72,9 @@ class _AddTaskState extends State<AddTask> {
           SizedBox(height: 10),
           Text(
             "Select Time",
-            style: Theme.of(context).textTheme.bodyMedium!
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
                 .copyWith(color: Theme.of(context).colorScheme.onPrimary),
           ),
           SizedBox(
@@ -97,7 +101,14 @@ class _AddTaskState extends State<AddTask> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(23)),
                   backgroundColor: primary),
-              onPressed: () {},
+              onPressed: () {
+                TaskModel task = TaskModel(
+                    title: titleController.text,
+                    description: descriptionController.text,
+                    date: DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch);
+                FireBaseOperations.addTasks(task)
+                    .then((value) => Navigator.pop(context));
+              },
               child: Text(
                 "Add",
                 style: Theme.of(context)
