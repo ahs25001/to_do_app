@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:to_do/fire_base/fire_base_manager.dart';
 import 'package:to_do/styles/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:to_do/tabs/update/update.dart';
 
 import '../../models/task_Model.dart';
 
@@ -25,11 +26,12 @@ class TaskItem extends StatelessWidget {
             backgroundColor: Colors.red,
             icon: Icons.delete,
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),label: "Delete",
+                topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
+            label: "Delete",
           ),
           SlidableAction(
             onPressed: (context) {
-
+              Navigator.pushNamed(context, UpDateScreen.routName,arguments: taskModel);
             },
             backgroundColor: primary,
             icon: Icons.edit,

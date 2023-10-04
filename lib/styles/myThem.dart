@@ -23,6 +23,8 @@ class MyThem {
       appBarTheme: AppBarTheme(
         backgroundColor: primary,
         elevation: 1,
+        titleTextStyle: GoogleFonts.poppins(
+            color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
       ),
       bottomNavigationBarTheme:  BottomNavigationBarThemeData(
         // selectedItemColor:primary,
@@ -35,8 +37,8 @@ class MyThem {
       textTheme: TextTheme(
         bodyLarge: GoogleFonts.poppins(
             color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-        // bodyMedium: GoogleFonts.poppins(
-        //     color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+        bodyMedium: GoogleFonts.poppins(
+            color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         bodySmall: GoogleFonts.poppins(
             color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
       ));
@@ -53,13 +55,16 @@ class MyThem {
           background: darkBlue,
           onBackground: Colors.white,
           surface: Colors.white,
-          onSurface: Colors.white),
+          onSurface: Color(0XFF141922)),
       scaffoldBackgroundColor: darkBlue,
       iconTheme: IconThemeData(color: primary),
       bottomSheetTheme: BottomSheetThemeData(backgroundColor: blackColor),
       appBarTheme: AppBarTheme(
         backgroundColor: primary,
         elevation: 1,
+        titleTextStyle: GoogleFonts.poppins(
+            color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+        iconTheme: IconThemeData(color: Colors.white)
       ),
       bottomNavigationBarTheme:  BottomNavigationBarThemeData(
         selectedItemColor: primary,
