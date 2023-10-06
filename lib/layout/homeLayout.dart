@@ -45,7 +45,6 @@ class _HomeLayoutState extends State<HomeLayout> {
         appBar: AppBar(
           title: Text(
             "To Do List",
-            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),
         bottomNavigationBar: BottomAppBar(
