@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/fire_base/fire_base_manager.dart';
 import 'package:to_do/models/task_Model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../styles/colors.dart';
 
@@ -15,7 +16,7 @@ class _AddTaskState extends State<AddTask> {
   var descriptionController = TextEditingController();
 
   var selectedDate = DateTime.now();
-  var formKey= GlobalKey<FormState>();
+  var formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +42,9 @@ class _AddTaskState extends State<AddTask> {
             ),
             TextFormField(
               validator: (value) {
-                if(value==null||value.isEmpty)
-                  {
-                    return "enter title";
-                  }
+                if (value == null || value.isEmpty) {
+                  return "enter title";
+                }
               },
               controller: titleController,
               decoration: InputDecoration(
@@ -65,14 +65,13 @@ class _AddTaskState extends State<AddTask> {
             ),
             TextFormField(
               validator: (value) {
-                if(value==null||value.isEmpty)
-                  {
-                    return "enter description";
-                  }
+                if (value == null || value.isEmpty) {
+                  return "enter description";
+                }
               },
               controller: descriptionController,
               decoration: InputDecoration(
-                label: Text("description"),
+                label: Text(AppLocalizations.of(context)!.taskDescription),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(23),
                     borderSide: BorderSide(color: primary)),
@@ -120,9 +119,10 @@ class _AddTaskState extends State<AddTask> {
                   TaskModel task = TaskModel(
                       title: titleController.text,
                       description: descriptionController.text,
-                      date: DateUtils.dateOnly(selectedDate).millisecondsSinceEpoch);
+                      date: DateUtils.dateOnly(selectedDate)
+                          .millisecondsSinceEpoch);
                   FireBaseOperations.addTasks(task);
-                       Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: Text(
                   "Add",
