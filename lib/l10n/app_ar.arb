@@ -7,5 +7,21 @@
   "arabic": "العربية",
   "light": "نهاري",
   "dark": "ليلي",
-  "done": "تم"
+  "done": "تم",
+  "addNewTask": "اضافة مهمه جديدة",
+  "selectTime": "اختار التاريخ",
+  "add": "اضافه",
+  "enterDescription":"ادخل وصف",
+  "enterTitle":"ادخل عنوان",
+  "editTask": "تعديل المهمه",
+  "delete": "حذف",
+  "edite": "تعديل",
+  "sinUp": "تسجبل مستخدم جديد",
+  "login": "تسجيل الدخول",
+  "enterValidMail": "ادخل حساب صحيح",
+  "enterPassword": "ادخل كلمة مرور",
+  "enterEmail": "ادخل حساب",
+  "enterName": "ادخل الاسم",
+  "enterAge": "ادخل العمر"
+
 }
