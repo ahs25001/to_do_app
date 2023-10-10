@@ -30,7 +30,7 @@ class _AddTaskState extends State<AddTask> {
           children: [
             Center(
               child: Text(
-                "Add New Task",
+                AppLocalizations.of(context)!.addNewTask,
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium!
@@ -43,12 +43,12 @@ class _AddTaskState extends State<AddTask> {
             TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "enter title";
+                  return AppLocalizations.of(context)!.enterTitle;
                 }
               },
               controller: titleController,
               decoration: InputDecoration(
-                label: Text("title"),
+                label: Text(AppLocalizations.of(context)!.taskTitle),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(23),
                     borderSide: BorderSide(color: primary)),
@@ -66,7 +66,7 @@ class _AddTaskState extends State<AddTask> {
             TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "enter description";
+                  return AppLocalizations.of(context)!.enterDescription;
                 }
               },
               controller: descriptionController,
@@ -85,7 +85,7 @@ class _AddTaskState extends State<AddTask> {
             ),
             SizedBox(height: 10),
             Text(
-              "Select Time",
+              AppLocalizations.of(context)!.selectTime,
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
@@ -116,16 +116,19 @@ class _AddTaskState extends State<AddTask> {
                         borderRadius: BorderRadius.circular(23)),
                     backgroundColor: primary),
                 onPressed: () {
-                  TaskModel task = TaskModel(
-                      title: titleController.text,
-                      description: descriptionController.text,
-                      date: DateUtils.dateOnly(selectedDate)
-                          .millisecondsSinceEpoch);
-                  FireBaseOperations.addTasks(task);
-                  Navigator.pop(context);
+                  if(formKey.currentState!.validate()) {
+                    TaskModel task = TaskModel(
+                        title: titleController.text,
+                        description: descriptionController.text,
+                        date: DateUtils
+                            .dateOnly(selectedDate)
+                            .millisecondsSinceEpoch);
+                    FireBaseOperations.addTasks(task);
+                    Navigator.pop(context);
+                  }
                 },
                 child: Text(
-                  "Add",
+                  AppLocalizations.of(context)!.add,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!

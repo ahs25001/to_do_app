@@ -10,5 +10,17 @@
   "done": "Done",
   "addNewTask": "Add New Task",
   "selectTime": "Select Time",
-  "add": "Add"
+  "add": "Add",
+  "enterDescription": "enter description",
+  "enterTitle": "enter title",
+  "editTask":"Edit Task",
+  "delete": "Delete",
+  "edite": "Edite",
+  "sinUp": "Sing Up",
+  "login": "Login",
+  "enterValidMail": "Enter Valid Mail",
+  "enterPassword": "Enter Password",
+  "enterEmail": "Enter Email",
+  "enterName": "Enter Name",
+  "enterAge": "Enter Age"
 }
