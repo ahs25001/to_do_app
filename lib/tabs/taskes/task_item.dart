@@ -16,105 +16,100 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider=Provider.of<MyProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ChangeNotifierProvider(
-        create: (context) => MyProvider(),
-        builder: (context, child) {
-          var provider = Provider.of<MyProvider>(context);
-          return Slidable(
-            closeOnScroll: true,
-            startActionPane: ActionPane(motion: StretchMotion(), children: [
-              SlidableAction(
-                onPressed: (context) {
-                  FireBaseOperations.deleteTask(taskModel);
-                },
-                backgroundColor: Colors.red,
-                icon: Icons.delete,
-                borderRadius: (provider.local == "en")
-                    ? BorderRadius.only(
-                        topLeft: Radius.circular(18),
-                        bottomLeft: Radius.circular(18))
-                    : BorderRadius.only(
-                        topRight: Radius.circular(18),
-                        bottomRight: Radius.circular(18)),
-                label: AppLocalizations.of(context)!.delete,
-              ),
-              SlidableAction(
-                onPressed: (context) {
-                  Navigator.pushNamed(context, UpDateScreen.routName,
-                      arguments: taskModel);
-                },
-                backgroundColor: primary,
-                icon: Icons.edit,
-                label: AppLocalizations.of(context)!.edite,
-              )
-            ]),
-            child: Card(
-              color: Theme.of(context).colorScheme.onError,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
+      child: Slidable(
+        closeOnScroll: true,
+        startActionPane: ActionPane(motion: StretchMotion(), children: [
+          SlidableAction(
+            onPressed: (context) {
+              FireBaseOperations.deleteTask(taskModel);
+            },
+            backgroundColor: Colors.red,
+            icon: Icons.delete,
+            borderRadius: (provider.local == "en")
+                ? BorderRadius.only(
+                topLeft: Radius.circular(18),
+                bottomLeft: Radius.circular(18))
+                : BorderRadius.only(
+                topRight: Radius.circular(18),
+                bottomRight: Radius.circular(18)),
+            label: AppLocalizations.of(context)!.delete,
+          ),
+          SlidableAction(
+            onPressed: (context) {
+              Navigator.pushNamed(context, UpDateScreen.routName,
+                  arguments: taskModel);
+            },
+            backgroundColor: primary,
+            icon: Icons.edit,
+            label: AppLocalizations.of(context)!.edite,
+          )
+        ]),
+        child: Card(
+          color: Theme.of(context).colorScheme.onError,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Container(
+                  width: 4,
+                  height: 70,
+                  decoration: BoxDecoration(
+                      color: (taskModel.isDone) ? Colors.green : primary,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                          color:
+                          (taskModel.isDone) ? Colors.green : primary)),
+                ),
+                SizedBox(
+                  width: 18,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: 4,
-                      height: 70,
-                      decoration: BoxDecoration(
-                          color: (taskModel.isDone) ? Colors.green : primary,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                              color:
-                                  (taskModel.isDone) ? Colors.green : primary)),
+                    Text(
+                      taskModel.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(
+                        color:
+                        (taskModel.isDone) ? Colors.green : primary,
+                      ),
                     ),
                     SizedBox(
-                      width: 18,
+                      height: 4,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          taskModel.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                color:
-                                    (taskModel.isDone) ? Colors.green : primary,
-                              ),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          taskModel.description,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary),
-                        )
-                      ],
-                    ),
-                    Spacer(),
-                    (taskModel.isDone)
-                        ? ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green),
-                            onPressed: () {},
-                            child: Text(AppLocalizations.of(context)!.done))
-                        : ElevatedButton(
-                            onPressed: () {
-                              FireBaseOperations.updateTask(taskModel,
-                                  isDone: true);
-                            },
-                            child: Icon(Icons.done))
+                    Text(
+                      taskModel.description,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(
+                          color:
+                          Theme.of(context).colorScheme.onPrimary),
+                    )
                   ],
                 ),
-              ),
+                Spacer(),
+                (taskModel.isDone)
+                    ? ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green),
+                    onPressed: () {},
+                    child: Text(AppLocalizations.of(context)!.done))
+                    : ElevatedButton(
+                    onPressed: () {
+                      FireBaseOperations.updateTask(taskModel,
+                          isDone: true);
+                    },
+                    child: Icon(Icons.done))
+              ],
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

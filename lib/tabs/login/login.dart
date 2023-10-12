@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:to_do/layout/homeLayout.dart';
 
 import '../../styles/colors.dart';
 
@@ -15,7 +16,7 @@ class _LoginState extends State<Login> {
 
   var formKey = GlobalKey<FormState>();
 
-  bool hidden=true;
+  bool hidden = true;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +31,10 @@ class _LoginState extends State<Login> {
                 if (value == null || value.isEmpty) {
                   return AppLocalizations.of(context)!.enterEmail;
                 }
-                final bool emailValid =
-                RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                final bool emailValid = RegExp(
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                     .hasMatch(value);
-                if(!emailValid){
+                if (!emailValid) {
                   return AppLocalizations.of(context)!.enterValidMail;
                 }
                 return null;
@@ -71,7 +72,9 @@ class _LoginState extends State<Login> {
                       },
                       icon: Icon(
                         Icons.remove_red_eye,
-                        color: (hidden) ? Colors.white70 : primary,
+                        color: (hidden)
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : primary,
                       )),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(23),
@@ -92,16 +95,25 @@ class _LoginState extends State<Login> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(23))),
                 onPressed: () {
-                  if (formKey.currentState!.validate()) {}
+                  if (formKey.currentState!.validate()) {
+                    Navigator.pushNamed(context, HomeLayout.routName);
+                  }
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(AppLocalizations.of(context)!.login),
+                    Text(
+                      AppLocalizations.of(context)!.login,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onError),
+                    ),
                     const SizedBox(
                       width: 10,
                     ),
-                    Icon(Icons.login)
+                    Icon(
+                      Icons.login,
+                      color: Theme.of(context).colorScheme.onError,
+                    )
                   ],
                 ))
           ],

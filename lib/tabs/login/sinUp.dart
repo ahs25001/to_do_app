@@ -85,10 +85,10 @@ class _SinUpState extends State<SinUp> {
                   if (value == null || value.isEmpty) {
                     return AppLocalizations.of(context)!.enterEmail;
                   }
-                  final bool emailValid =
-                  RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                  final bool emailValid = RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                       .hasMatch(value);
-                  if(!emailValid){
+                  if (!emailValid) {
                     return AppLocalizations.of(context)!.enterValidMail;
                   }
                   return null;
@@ -126,7 +126,9 @@ class _SinUpState extends State<SinUp> {
                         },
                         icon: Icon(
                           Icons.remove_red_eye,
-                          color: (hidden) ? Colors.white70 : primary,
+                          color: (hidden)
+                              ? Theme.of(context).colorScheme.onPrimary
+                              : primary,
                         )),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(23),
@@ -152,11 +154,15 @@ class _SinUpState extends State<SinUp> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(AppLocalizations.of(context)!.sinUp),
+                      Text(
+                        AppLocalizations.of(context)!.sinUp,
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onError),
+                      ),
                       const SizedBox(
                         width: 10,
                       ),
-                      Icon(Icons.login)
+                      Icon(Icons.login,color: Theme.of(context).colorScheme.onError,)
                     ],
                   ))
             ],

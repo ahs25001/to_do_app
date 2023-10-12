@@ -21,6 +21,7 @@ class MyThem {
       scaffoldBackgroundColor: mintGreen,
       iconTheme: IconThemeData(color: primary),
       appBarTheme: AppBarTheme(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: primary,
         elevation: 1,
         titleTextStyle: GoogleFonts.poppins(

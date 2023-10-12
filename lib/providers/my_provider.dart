@@ -6,6 +6,9 @@ class MyProvider extends ChangeNotifier{
   changeLocal(String code){
     local=code;
     notifyListeners();
+    print (local);
+    print('----------------');
+
   }
   changeMode(String mode){
     this.mode=mode;
