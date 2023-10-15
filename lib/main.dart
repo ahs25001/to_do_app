@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         UpDateScreen.routName:(context) => UpDateScreen(),
         LoginAndSinUppScreen.routName:(context) => LoginAndSinUppScreen()
       },
-      initialRoute: LoginAndSinUppScreen.routName,
+      initialRoute:(provider.fireBaseUser==null)? LoginAndSinUppScreen.routName:HomeLayout.routName,
       debugShowCheckedModeBanner: false,
     );
   }

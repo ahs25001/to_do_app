@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:to_do/fire_base/fire_base_manager.dart';
+import 'package:to_do/tabs/login/loginAndSinUpScreen.dart';
 
 import '../../styles/colors.dart';
 
@@ -149,7 +151,23 @@ class _SinUpState extends State<SinUp> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(23))),
                   onPressed: () {
-                    if (formKey.currentState!.validate()) {}
+                    if (formKey.currentState!.validate()) {
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        },
+                      );
+                      FireBaseOperations.createAccount(
+                          email: mailController.text,
+                          password: passwordController.text,
+                          onSuccess: onSuccess,
+                          onError: onError,
+                          name: nameController.text,
+                          age: int.parse(ageController.text));
+                    }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -162,13 +180,36 @@ class _SinUpState extends State<SinUp> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Icon(Icons.login,color: Theme.of(context).colorScheme.onError,)
+                      Icon(
+                        Icons.login,
+                        color: Theme.of(context).colorScheme.onError,
+                      )
                     ],
                   ))
             ],
           ),
         ),
       ),
+    );
+  }
+
+  onSuccess() {
+    Navigator.pushNamedAndRemoveUntil(
+        context, LoginAndSinUppScreen.routName, (route) => false);
+  }
+
+  onError(String error) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => AlertDialog(actions: [
+        ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            child: const Text("Ok"))
+      ], title: const Text("Error"), content: Text(error)),
     );
   }
 }

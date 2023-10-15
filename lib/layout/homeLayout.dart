@@ -1,10 +1,12 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/providers/my_provider.dart';
 import 'package:to_do/styles/colors.dart';
 import 'package:to_do/tabs/bottom_sheet/add_task.dart';
+import 'package:to_do/tabs/login/loginAndSinUpScreen.dart';
 
 import '../tabs/settings/settings.dart';
 import '../tabs/taskes/task_item.dart';
@@ -38,14 +40,30 @@ class _HomeLayoutState extends State<HomeLayout> {
           },
           shape: const CircleBorder(
               side: BorderSide(
-                width: 3,
+            width: 3,
             color: Colors.white,
           )),
         ),
         appBar: AppBar(
-          title: Text(
-            "To Do List",
+          title: Row(
+            children: [
+              Text(
+                "To Do List ${provider.user?.name}",
+              ),
+              const Spacer(),
+              // Text(
+              //   provider.user!.name,
+              //   style: Theme.of(context)
+              //       .textTheme
+              //       .bodyMedium!
+              //       .copyWith(color: Colors.white),
+              // ),
+            ],
           ),
+          actions: [IconButton(onPressed: (){
+            FirebaseAuth.instance.signOut();
+            Navigator.pushNamedAndRemoveUntil(context, LoginAndSinUppScreen.routName, (route) => false);
+          }, icon:Icon(Icons.logout))],
         ),
         bottomNavigationBar: BottomAppBar(
           notchMargin: 8,
@@ -56,7 +74,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                 index = value;
                 setState(() {});
               },
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                     icon: ImageIcon(
                         AssetImage("assets/images/Icon awesome-list.png")),

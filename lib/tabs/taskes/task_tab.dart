@@ -49,7 +49,7 @@ class _TasksState extends State<Tasks> {
             if (snapshot.hasError) {
               return const Center(child: Text("Error"));
             }
-            var tasks = snapshot.data!.docs.map((doc) => doc.data()).toList();
+            var tasks = snapshot.data!.docs.map((doc) => doc.data()).toList()??[];
             return ListView.builder(
               itemBuilder: (context, index) {
                 return TaskItem(tasks[index]);

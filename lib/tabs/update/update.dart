@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../fire_base/fire_base_manager.dart';
@@ -130,6 +131,7 @@ class _UpDateScreenState extends State<UpDateScreen> {
                         onPressed: () {
                           if(formKey.currentState!.validate()) {
                             TaskModel task = TaskModel(
+                              userid: FirebaseAuth.instance.currentUser!.uid,
                                 title: titleController.text,
                                 description: descriptionController.text,
                                 date: DateUtils

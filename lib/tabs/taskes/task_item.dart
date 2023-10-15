@@ -10,9 +10,9 @@ import 'package:to_do/tabs/update/update.dart';
 import '../../models/task_Model.dart';
 
 class TaskItem extends StatelessWidget {
-  TaskModel taskModel;
+  final TaskModel taskModel;
 
-  TaskItem(this.taskModel);
+  const TaskItem(this.taskModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +29,10 @@ class TaskItem extends StatelessWidget {
             backgroundColor: Colors.red,
             icon: Icons.delete,
             borderRadius: (provider.local == "en")
-                ? BorderRadius.only(
+                ? const BorderRadius.only(
                 topLeft: Radius.circular(18),
                 bottomLeft: Radius.circular(18))
-                : BorderRadius.only(
+                : const BorderRadius.only(
                 topRight: Radius.circular(18),
                 bottomRight: Radius.circular(18)),
             label: AppLocalizations.of(context)!.delete,
