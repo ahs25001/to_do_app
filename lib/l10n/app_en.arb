@@ -21,6 +21,9 @@
   "enterValidMail": "Enter Valid Mail",
   "enterPassword": "Enter Password",
   "enterEmail": "Enter Email",
-  "enterName": "Enter Name",
-  "enterAge": "Enter Age"
+  "enterFirstName": "Enter First Name",
+  "enterLastName": "Enter Last Name",
+  "enterAge": "Enter Age",
+  "logOut": "Logout"
+
 }

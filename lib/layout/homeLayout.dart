@@ -40,30 +40,35 @@ class _HomeLayoutState extends State<HomeLayout> {
           },
           shape: const CircleBorder(
               side: BorderSide(
-            width: 3,
-            color: Colors.white,
-          )),
+                width: 3,
+                color: Colors.white,
+              )),
         ),
         appBar: AppBar(
           title: Row(
             children: [
               Text(
-                "To Do List ${provider.user?.name}",
+                "To Do List",
               ),
-              const Spacer(),
-              // Text(
-              //   provider.user!.name,
-              //   style: Theme.of(context)
-              //       .textTheme
-              //       .bodyMedium!
-              //       .copyWith(color: Colors.white),
-              // ),
             ],
           ),
-          actions: [IconButton(onPressed: (){
-            FirebaseAuth.instance.signOut();
-            Navigator.pushNamedAndRemoveUntil(context, LoginAndSinUppScreen.routName, (route) => false);
-          }, icon:Icon(Icons.logout))],
+          actions: [
+          Stack(
+          alignment: Alignment.center,
+          children: [
+            CircleAvatar(backgroundColor: Theme
+                .of(context)
+                .colorScheme
+                .onSecondary,),
+            Text(provider.user!.firstName[0], style: Theme
+                .of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(color: Theme.of(context).colorScheme.onPrimary,))
+              ],
+            ),
+          const SizedBox(width: 20,)
+          ],
         ),
         bottomNavigationBar: BottomAppBar(
           notchMargin: 8,
@@ -95,7 +100,10 @@ class _HomeLayoutState extends State<HomeLayout> {
       builder: (context) {
         return Padding(
           padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          EdgeInsets.only(bottom: MediaQuery
+              .of(context)
+              .viewInsets
+              .bottom),
           child: AddTask(),
         );
       },

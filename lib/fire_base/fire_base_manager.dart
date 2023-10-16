@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:to_do/models/task_Model.dart';
 import 'package:to_do/models/user_model.dart';
 
@@ -26,9 +25,9 @@ class FireBaseOperations {
     return decRef.set(taskModel);
   }
 
-  static Stream<QuerySnapshot<TaskModel>> getTask(DateTime date) {
+  static Stream<QuerySnapshot<TaskModel>> getTask(DateTime date,String id) {
     return getTasksCollection()
-        .where("userid", isEqualTo: FirebaseAuth.instance.currentUser)
+        .where("userid", isEqualTo: id)
         .where("date",
             isEqualTo: DateUtils.dateOnly(date).millisecondsSinceEpoch)
         .snapshots();
@@ -61,7 +60,8 @@ class FireBaseOperations {
       required String password,
       required Function onSuccess,
       required Function onError,
-      required String name,
+      required String firstName,
+      required String lastName,
       required int age}) async {
     try {
       final credential =
@@ -70,7 +70,7 @@ class FireBaseOperations {
         password: password,
       );
       UserModel user = UserModel(
-          id: credential.user!.uid, name: name, age: age, email: email);
+          id: credential.user!.uid, firstName: firstName,lastName: lastName, age: age, email: email);
       credential.user?.sendEmailVerification();
       FireBaseOperations.addUserToFirestore(user);
       onSuccess();
