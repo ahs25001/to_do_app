@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:to_do/fire_base/fire_base_manager.dart';
+import 'package:to_do/tabs/login/loginAndSinUpScreen.dart';
 
 import '../../styles/colors.dart';
 
@@ -11,7 +13,8 @@ class SinUp extends StatefulWidget {
 class _SinUpState extends State<SinUp> {
   var mailController = TextEditingController();
 
-  var nameController = TextEditingController();
+  var firstNameController = TextEditingController();
+  var lastNameController = TextEditingController();
 
   var ageController = TextEditingController();
 
@@ -25,23 +28,23 @@ class _SinUpState extends State<SinUp> {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      child: Padding(
-        padding: EdgeInsets.only(
-            top: 18.0,
-            left: 18,
-            right: 18,
-            bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: SingleChildScrollView(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(
+              top: 18.0,
+              left: 18,
+              right: 18,
+              bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Column(
             children: [
               TextFormField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.enterName;
+                    return AppLocalizations.of(context)!.enterFirstName;
                   }
                   return null;
                 },
-                controller: nameController,
+                controller: firstNameController,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(23),
@@ -52,12 +55,36 @@ class _SinUpState extends State<SinUp> {
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(23),
                         borderSide: BorderSide(color: primary)),
-                    label: Text(AppLocalizations.of(context)!.enterName)),
+                    label: Text(AppLocalizations.of(context)!.enterFirstName)),
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return AppLocalizations.of(context)!.enterLastName;
+                  }
+                  return null;
+                },
+                controller: lastNameController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(23),
+                        borderSide: BorderSide(color: primary)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(23),
+                        borderSide: BorderSide(color: primary)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(23),
+                        borderSide: BorderSide(color: primary)),
+                    label: Text(AppLocalizations.of(context)!.enterLastName)),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return AppLocalizations.of(context)!.enterAge;
@@ -81,6 +108,7 @@ class _SinUpState extends State<SinUp> {
                 height: 20,
               ),
               TextFormField(
+                keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return AppLocalizations.of(context)!.enterEmail;
@@ -149,7 +177,24 @@ class _SinUpState extends State<SinUp> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(23))),
                   onPressed: () {
-                    if (formKey.currentState!.validate()) {}
+                    if (formKey.currentState!.validate()) {
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        },
+                      );
+                      FireBaseOperations.createAccount(
+                          email: mailController.text,
+                          password: passwordController.text,
+                          onSuccess: onSuccess,
+                          onError: onError,
+                          firstName: firstNameController.text,
+                          lastName: lastNameController.text,
+                          age: int.parse(ageController.text));
+                    }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -162,13 +207,36 @@ class _SinUpState extends State<SinUp> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Icon(Icons.login,color: Theme.of(context).colorScheme.onError,)
+                      Icon(
+                        Icons.login,
+                        color: Theme.of(context).colorScheme.onError,
+                      )
                     ],
                   ))
             ],
           ),
         ),
       ),
+    );
+  }
+
+  onSuccess() {
+    Navigator.pushNamedAndRemoveUntil(
+        context, LoginAndSinUppScreen.routName, (route) => false);
+  }
+
+  onError(String error) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => AlertDialog(actions: [
+        ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            child: const Text("Ok"))
+      ], title: const Text("Error"), content: Text(error)),
     );
   }
 }

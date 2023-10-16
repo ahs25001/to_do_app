@@ -1,7 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do/fire_base/fire_base_manager.dart';
 import 'package:to_do/layout/homeLayout.dart';
+import 'package:to_do/providers/my_provider.dart';
 
+import '../../models/task_Model.dart';
 import '../../styles/colors.dart';
 
 class Login extends StatefulWidget {
@@ -20,6 +26,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return Form(
       key: formKey,
       child: Padding(
@@ -96,7 +103,22 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(23))),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    Navigator.pushNamed(context, HomeLayout.routName);
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                    );
+                    FireBaseOperations.login(
+                        mailController.text, passwordController.text, () {
+                      provider.initUser();
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        HomeLayout.routName,
+                        (route) => false,
+                      );
+                    }, onError);
                   }
                 },
                 child: Row(
@@ -119,6 +141,21 @@ class _LoginState extends State<Login> {
           ],
         ),
       ),
+    );
+  }
+
+  onError(String error) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => AlertDialog(actions: [
+        ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            child: const Text("Ok"))
+      ], title: const Text("Error"), content: Text(error)),
     );
   }
 }

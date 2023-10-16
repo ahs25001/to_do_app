@@ -1,7 +1,10 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do/fire_base/fire_base_manager.dart';
+import 'package:to_do/providers/my_provider.dart';
 import 'package:to_do/tabs/taskes/task_item.dart';
 
 import '../../models/task_Model.dart';
@@ -41,7 +44,7 @@ class _TasksState extends State<Tasks> {
         ),
         Expanded(
             child: StreamBuilder<QuerySnapshot<TaskModel>>(
-          stream: FireBaseOperations.getTask(selectedDate),
+          stream: FireBaseOperations.getTask(selectedDate,FirebaseAuth.instance.currentUser!.uid),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -49,7 +52,7 @@ class _TasksState extends State<Tasks> {
             if (snapshot.hasError) {
               return const Center(child: Text("Error"));
             }
-            var tasks = snapshot.data!.docs.map((doc) => doc.data()).toList();
+            var tasks = snapshot.data!.docs.map((doc) => doc.data()).toList()??[];
             return ListView.builder(
               itemBuilder: (context, index) {
                 return TaskItem(tasks[index]);

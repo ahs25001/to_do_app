@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/styles/colors.dart';
@@ -7,6 +7,7 @@ import 'package:to_do/tabs/settings/bottom_sheet/language_bottom_sheet.dart';
 import 'package:to_do/tabs/settings/bottom_sheet/theme_bottom_sheet.dart';
 
 import '../../providers/my_provider.dart';
+import '../login/loginAndSinUpScreen.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -24,6 +25,32 @@ class _SettingsState extends State<Settings> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            decoration: BoxDecoration(
+                border: Border.all(color: primary, width: 3),
+                borderRadius: BorderRadius.circular(23)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${provider.user!.firstName} ${provider.user!.lastName}",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                ),
+                Text(
+                  provider.user!.email,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: primary),
+                )
+              ],
+            ),
+          ),
+          const SizedBox(height: 20,),
           Text(
             AppLocalizations.of(context)!.language,
             style: Theme.of(context)
@@ -31,7 +58,7 @@ class _SettingsState extends State<Settings> {
                 .bodyMedium!
                 .copyWith(color: primary),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           InkWell(
@@ -39,7 +66,7 @@ class _SettingsState extends State<Settings> {
               openLanguageSheet();
             },
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               decoration: BoxDecoration(
                   border: Border.all(color: primary, width: 3),
                   borderRadius: BorderRadius.circular(23)),
@@ -54,7 +81,7 @@ class _SettingsState extends State<Settings> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(AppLocalizations.of(context)!.mode,
@@ -62,7 +89,7 @@ class _SettingsState extends State<Settings> {
                   .textTheme
                   .bodyMedium!
                   .copyWith(color: primary)),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           InkWell(
@@ -70,7 +97,7 @@ class _SettingsState extends State<Settings> {
               openThemeSheet();
             },
             child: Container(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 decoration: BoxDecoration(
                     border: Border.all(color: primary, width: 3),
                     borderRadius: BorderRadius.circular(23)),
@@ -83,7 +110,36 @@ class _SettingsState extends State<Settings> {
                       .bodyMedium!
                       .copyWith(color: Theme.of(context).colorScheme.onPrimary),
                 )),
-          )
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(23))),
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginAndSinUppScreen.routName, (route) => false);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.logOut,
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.onError),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Icon(
+                    Icons.logout,
+                    color: Theme.of(context).colorScheme.onError,
+                  )
+                ],
+              )),
         ],
       ),
     );
@@ -93,7 +149,7 @@ class _SettingsState extends State<Settings> {
     showModalBottomSheet(
         context: context,
         builder: (context) {
-          return LanguageBottomSheet();
+          return const LanguageBottomSheet();
         });
   }
 
@@ -101,7 +157,7 @@ class _SettingsState extends State<Settings> {
     showModalBottomSheet(
         context: context,
         builder: (context) {
-          return ThemeSheet();
+          return const ThemeSheet();
         });
   }
 }

@@ -21,7 +21,9 @@
   "enterValidMail": "ادخل حساب صحيح",
   "enterPassword": "ادخل كلمة مرور",
   "enterEmail": "ادخل حساب",
-  "enterName": "ادخل الاسم",
-  "enterAge": "ادخل العمر"
+  "enterFirstName": "ادخل الاسم الاول",
+  "enterLastName": "ادخل الاسم الثاني",
+  "enterAge": "ادخل العمر",
+  "logOut": "تسجيل خروج"
 
 }

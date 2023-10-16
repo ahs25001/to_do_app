@@ -1,10 +1,12 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/providers/my_provider.dart';
 import 'package:to_do/styles/colors.dart';
 import 'package:to_do/tabs/bottom_sheet/add_task.dart';
+import 'package:to_do/tabs/login/loginAndSinUpScreen.dart';
 
 import '../tabs/settings/settings.dart';
 import '../tabs/taskes/task_item.dart';
@@ -39,13 +41,34 @@ class _HomeLayoutState extends State<HomeLayout> {
           shape: const CircleBorder(
               side: BorderSide(
                 width: 3,
-            color: Colors.white,
-          )),
+                color: Colors.white,
+              )),
         ),
         appBar: AppBar(
-          title: Text(
-            "To Do List",
+          title: Row(
+            children: [
+              Text(
+                "To Do List",
+              ),
+            ],
           ),
+          actions: [
+          Stack(
+          alignment: Alignment.center,
+          children: [
+            CircleAvatar(backgroundColor: Theme
+                .of(context)
+                .colorScheme
+                .onSecondary,),
+            Text(provider.user!.firstName[0], style: Theme
+                .of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(color: Theme.of(context).colorScheme.onPrimary,))
+              ],
+            ),
+          const SizedBox(width: 20,)
+          ],
         ),
         bottomNavigationBar: BottomAppBar(
           notchMargin: 8,
@@ -56,7 +79,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                 index = value;
                 setState(() {});
               },
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                     icon: ImageIcon(
                         AssetImage("assets/images/Icon awesome-list.png")),
@@ -77,7 +100,10 @@ class _HomeLayoutState extends State<HomeLayout> {
       builder: (context) {
         return Padding(
           padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          EdgeInsets.only(bottom: MediaQuery
+              .of(context)
+              .viewInsets
+              .bottom),
           child: AddTask(),
         );
       },

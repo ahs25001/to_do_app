@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do/fire_base/fire_base_manager.dart';
 import 'package:to_do/models/task_Model.dart';
@@ -118,6 +119,7 @@ class _AddTaskState extends State<AddTask> {
                 onPressed: () {
                   if(formKey.currentState!.validate()) {
                     TaskModel task = TaskModel(
+                      userid: FirebaseAuth.instance.currentUser!.uid,
                         title: titleController.text,
                         description: descriptionController.text,
                         date: DateUtils
