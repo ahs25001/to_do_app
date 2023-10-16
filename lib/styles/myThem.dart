@@ -47,7 +47,7 @@ class MyThem {
       bottomAppBarColor: Colors.white,
       colorScheme: ColorScheme(
           brightness: Brightness.dark,
-          primary: primary,
+          primary: Colors.white,
           onPrimary: Colors.white,
           secondary: Colors.white,
           onSecondary: darkBlue,

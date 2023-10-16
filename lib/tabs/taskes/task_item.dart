@@ -79,7 +79,7 @@ class TaskItem extends StatelessWidget {
                         (taskModel.isDone) ? Colors.green : primary,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 4,
                     ),
                     Text(
@@ -93,7 +93,7 @@ class TaskItem extends StatelessWidget {
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 (taskModel.isDone)
                     ? ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -101,6 +101,8 @@ class TaskItem extends StatelessWidget {
                     onPressed: () {},
                     child: Text(AppLocalizations.of(context)!.done))
                     : ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: primary),
                     onPressed: () {
                       FireBaseOperations.updateTask(taskModel,
                           isDone: true);

@@ -147,9 +147,9 @@ class _AddTaskState extends State<AddTask> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Colors.white,
-              onPrimary: Colors.black,
+            colorScheme:  ColorScheme.light(
+              primary: Theme.of(context).colorScheme.primary,
+              onPrimary: Theme.of(context).colorScheme.onError,
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(

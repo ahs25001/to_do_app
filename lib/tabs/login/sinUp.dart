@@ -231,6 +231,9 @@ class _SinUpState extends State<SinUp> {
       context: context,
       builder: (context) => AlertDialog(actions: [
         ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: primary,
+          ),
             onPressed: () {
               Navigator.pop(context);
               Navigator.pop(context);

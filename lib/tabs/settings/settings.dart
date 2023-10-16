@@ -116,6 +116,7 @@ class _SettingsState extends State<Settings> {
           ),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
+                  backgroundColor: primary,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(23))),
               onPressed: () {
