@@ -26,6 +26,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
+    String char=provider.user?.firstName[0]??"X";
     return Scaffold(
         extendBody: true,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -60,7 +61,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                 .of(context)
                 .colorScheme
                 .onSecondary,),
-            Text(provider.user!.firstName[0], style: Theme
+            Text(char, style: Theme
                 .of(context)
                 .textTheme
                 .bodyMedium!
