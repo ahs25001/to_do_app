@@ -165,6 +165,22 @@ class _UpDateScreenState extends State<UpDateScreen> {
 
   selectDate() async {
     DateTime? chosenDate = await showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Colors.white,
+              onPrimary: Colors.black,
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black,
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime.now(),

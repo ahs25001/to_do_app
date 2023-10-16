@@ -34,6 +34,7 @@ class _LoginState extends State<Login> {
         child: Column(
           children: [
             TextFormField(
+              keyboardType: TextInputType.emailAddress,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return AppLocalizations.of(context)!.enterEmail;

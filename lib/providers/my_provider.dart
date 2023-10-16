@@ -4,8 +4,8 @@ import 'package:to_do/fire_base/fire_base_manager.dart';
 import 'package:to_do/models/user_model.dart';
 
 class MyProvider extends ChangeNotifier {
-  String local = "en";
-  String mode = "dark";
+  String local = "ar";
+  String mode = "light";
   UserModel? user;
   User? fireBaseUser;
 
