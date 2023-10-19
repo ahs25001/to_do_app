@@ -39,8 +39,9 @@ class TaskItem extends StatelessWidget {
           ),
           SlidableAction(
             onPressed: (context) {
-              Navigator.pushNamed(context, UpDateScreen.routName,
-                  arguments: taskModel);
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return UpDateScreen(taskModel: taskModel);
+              },));
             },
             backgroundColor: primary,
             icon: Icons.edit,
@@ -104,8 +105,8 @@ class TaskItem extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: primary),
                     onPressed: () {
-                      FireBaseOperations.updateTask(taskModel,
-                          isDone: true);
+                      taskModel.isDone=true;
+                      FireBaseOperations.updateTask(taskModel);
                     },
                     child: Icon(Icons.done))
               ],

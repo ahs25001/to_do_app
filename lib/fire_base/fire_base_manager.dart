@@ -25,7 +25,7 @@ class FireBaseOperations {
     return decRef.set(taskModel);
   }
 
-  static Stream<QuerySnapshot<TaskModel>> getTask(DateTime date,String id) {
+  static Stream<QuerySnapshot<TaskModel>> getTask(DateTime date, String id) {
     return getTasksCollection()
         .where("userid", isEqualTo: id)
         .where("date",
@@ -33,22 +33,8 @@ class FireBaseOperations {
         .snapshots();
   }
 
-  static updateTask(TaskModel taskModel,
-      {bool? isDone, String? title, String? description, int? date}) {
-    if (isDone != null) {
-      getTasksCollection().doc(taskModel.id).update({"isDone": isDone});
-    }
-    if (title != null) {
-      getTasksCollection().doc(taskModel.id).update({"title": title});
-    }
-    if (description != null) {
-      getTasksCollection()
-          .doc(taskModel.id)
-          .update({"description": description});
-    }
-    if (date != null) {
-      getTasksCollection().doc(taskModel.id).update({"date": date});
-    }
+  static updateTask(TaskModel taskModel) {
+    getTasksCollection().doc(taskModel.id).update(taskModel.toJson());
   }
 
   static deleteTask(TaskModel task) {
@@ -70,7 +56,11 @@ class FireBaseOperations {
         password: password,
       );
       UserModel user = UserModel(
-          id: credential.user!.uid, firstName: firstName,lastName: lastName, age: age, email: email);
+          id: credential.user!.uid,
+          firstName: firstName,
+          lastName: lastName,
+          age: age,
+          email: email);
       credential.user?.sendEmailVerification();
       FireBaseOperations.addUserToFirestore(user);
       onSuccess();
@@ -120,8 +110,10 @@ class FireBaseOperations {
       }
     }
   }
-  static Future<UserModel?> getUser(String id)async{
-    DocumentSnapshot<UserModel>snapshot=await getUserCollection().doc(id).get();
+
+  static Future<UserModel?> getUser(String id) async {
+    DocumentSnapshot<UserModel> snapshot =
+        await getUserCollection().doc(id).get();
     return snapshot.data();
   }
 }

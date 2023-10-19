@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../fire_base/fire_base_manager.dart';
@@ -8,29 +7,36 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpDateScreen extends StatefulWidget {
   static const String routName = "update";
+  TaskModel taskModel;
+
+  UpDateScreen({super.key, required this.taskModel});
 
   @override
   State<UpDateScreen> createState() => _UpDateScreenState();
 }
 
 class _UpDateScreenState extends State<UpDateScreen> {
-  var formKey=GlobalKey<FormState>();
+  var formKey = GlobalKey<FormState>();
   var titleController = TextEditingController();
 
   var descriptionController = TextEditingController();
 
   var selectedDate = DateTime.now();
-  bool edited=false;
+  bool edited = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    titleController.text = widget.taskModel.title;
+    descriptionController.text = widget.taskModel.description;
+    selectedDate = DateTime.fromMillisecondsSinceEpoch(widget.taskModel.date!);
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)!.settings.arguments as TaskModel;
-    if(!edited) {
-      titleController.text = args.title;
-      descriptionController.text = args.description;
-      selectedDate = DateTime.fromMillisecondsSinceEpoch(args.date!);
-    }
     return Scaffold(
-      appBar: AppBar(title: Text("To Do")),
+      appBar: AppBar(title: const Text("To Do")),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Center(
@@ -50,7 +56,7 @@ class _UpDateScreenState extends State<UpDateScreen> {
                             color: Theme.of(context).colorScheme.onPrimary),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
@@ -58,6 +64,7 @@ class _UpDateScreenState extends State<UpDateScreen> {
                         if (value == null || value.isEmpty) {
                           return AppLocalizations.of(context)!.enterTitle;
                         }
+                        return null;
                       },
                       controller: titleController,
                       onTap: () => titleController.clear(),
@@ -74,7 +81,7 @@ class _UpDateScreenState extends State<UpDateScreen> {
                             borderSide: BorderSide(color: primary)),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFormField(
@@ -82,11 +89,13 @@ class _UpDateScreenState extends State<UpDateScreen> {
                         if (value == null || value.isEmpty) {
                           return AppLocalizations.of(context)!.enterDescription;
                         }
+                        return null;
                       },
                       controller: descriptionController,
                       onTap: () => descriptionController.clear(),
                       decoration: InputDecoration(
-                        label: Text(AppLocalizations.of(context)!.taskDescription),
+                        label:
+                            Text(AppLocalizations.of(context)!.taskDescription),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(23),
                             borderSide: BorderSide(color: primary)),
@@ -98,13 +107,13 @@ class _UpDateScreenState extends State<UpDateScreen> {
                             borderSide: BorderSide(color: primary)),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       AppLocalizations.of(context)!.selectTime,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: Theme.of(context).colorScheme.onPrimary),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     InkWell(
@@ -120,7 +129,7 @@ class _UpDateScreenState extends State<UpDateScreen> {
                             .copyWith(color: primary),
                       )),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     ElevatedButton(
@@ -129,25 +138,24 @@ class _UpDateScreenState extends State<UpDateScreen> {
                                 borderRadius: BorderRadius.circular(23)),
                             backgroundColor: primary),
                         onPressed: () {
-                          if(formKey.currentState!.validate()) {
-                            TaskModel task = TaskModel(
-                              userid: FirebaseAuth.instance.currentUser!.uid,
-                                title: titleController.text,
-                                description: descriptionController.text,
-                                date: DateUtils
-                                    .dateOnly(selectedDate)
-                                    .millisecondsSinceEpoch);
-                            FireBaseOperations.updateTask(args,
-                                description: descriptionController.text,
-                                date: DateUtils
-                                    .dateOnly(selectedDate)
-                                    .millisecondsSinceEpoch,
-                                title: titleController.text);
+                          if (formKey.currentState!.validate()) {
+                            // TaskModel task = TaskModel(
+                            //   userid: FirebaseAuth.instance.currentUser!.uid,
+                            //     title: titleController.text,
+                            //     description: descriptionController.text,
+                            //     date: DateUtils
+                            //         .dateOnly(selectedDate)
+                            //         .millisecondsSinceEpoch);
+                            widget.taskModel.description = descriptionController.text;
+                            widget.taskModel.date = DateUtils.dateOnly(selectedDate)
+                                .millisecondsSinceEpoch;
+                            widget.taskModel.title = titleController.text;
+                            FireBaseOperations.updateTask(widget.taskModel);
                             Navigator.pop(context);
                           }
                         },
                         child: Text(
-                         AppLocalizations.of(context)!.done,
+                          AppLocalizations.of(context)!.done,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
@@ -165,22 +173,22 @@ class _UpDateScreenState extends State<UpDateScreen> {
 
   selectDate() async {
     DateTime? chosenDate = await showDatePicker(
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Colors.white,
-              onPrimary: Colors.black,
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.black,
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: Theme.of(context).colorScheme.primary,
+                onPrimary: Theme.of(context).colorScheme.onError,
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.black,
+                ),
               ),
             ),
-          ),
-          child: child!,
-        );
-      },
+            child: child!,
+          );
+        },
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime.now(),
@@ -190,7 +198,7 @@ class _UpDateScreenState extends State<UpDateScreen> {
     } else {
       selectedDate = chosenDate;
     }
-    edited=true;
+    edited = true;
     setState(() {});
   }
 }

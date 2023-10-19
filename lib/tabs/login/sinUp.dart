@@ -174,6 +174,7 @@ class _SinUpState extends State<SinUp> {
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                      backgroundColor: primary,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(23))),
                   onPressed: () {
@@ -231,9 +232,7 @@ class _SinUpState extends State<SinUp> {
       context: context,
       builder: (context) => AlertDialog(actions: [
         ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: primary,
-          ),
+
             onPressed: () {
               Navigator.pop(context);
               Navigator.pop(context);

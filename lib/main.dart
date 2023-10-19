@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
       darkTheme: MyThem.dark,
       routes: {
         HomeLayout.routName:(context) => HomeLayout(),
-        UpDateScreen.routName:(context) => UpDateScreen(),
         LoginAndSinUppScreen.routName:(context) => LoginAndSinUppScreen()
       },
       initialRoute:(provider.fireBaseUser==null)? LoginAndSinUppScreen.routName:HomeLayout.routName,
